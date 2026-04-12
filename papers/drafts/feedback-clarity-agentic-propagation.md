@@ -35,7 +35,7 @@ The strongest objection: clarity improves with scale, so early low-clarity is tr
 
 (2) **Latency is time-bound**: biological and operational confirmation windows (months–years) do not compress with compute or user volume — they set a lower bound on the rate at which deployed agents can get high-quality supervision. A 5-year confirmation window does not compress at deployment scale. Feedback latency in clinical tasks is bounded by biological time, not compute or deployment volume, and is therefore structurally decoupled from the scaling curve the counterargument assumes.
 
-(3) **Institutional concentration caps access**: EHR vendor pathways, coding/reimbursement incentives, and documentation practices create durable ceilings on which outcomes are both recordable and usable; empirical identification often requires vendor-variation or external linkage. [EHR vendor concentration citation needed — ONC Health IT Dashboard / KLAS 2023–2024 EHR market share report]. These constraints persist independently of deployment volume and can produce a hard ceiling on accessible signal quality.
+(3) **Institutional concentration caps access**: EHR vendor pathways, coding/reimbursement incentives, and documentation practices create durable ceilings on which outcomes are both recordable and usable; empirical identification often requires vendor-variation or external linkage. As of end-2024, Epic holds an estimated 42.3% of US acute care hospital market share and 54.9% of bed market share, capturing ~70% of all hospital EHR decisions in 2024 (KLAS Research, *US Acute Care EHR Market Share 2025*, 2025). This degree of concentration means training pipelines in most large-system deployments are gated by a single vendor's data model and export policies. These constraints persist independently of deployment volume and can produce a hard ceiling on accessible signal quality.
 
 ## 6. Organizational Implications
 
@@ -57,4 +57,4 @@ Coding is an outlier, not a default. Forecasts that extrapolate token demand sho
 
 ---
 
-*Open citations: (1) Obermeyer et al. 2019 — inserted in Sec 5.1. (2) EHR vendor concentration — ONC/KLAS placeholder in Sec 5.3, needs specific report citation. (3) Confirmed-outcome cohort numbers — placeholder in Sec 7, populate when available.*
+*Open citations: (1) Obermeyer et al. 2019 — inserted in Sec 5.1. ✓ (2) KLAS EHR concentration — inserted in Sec 5.3: KLAS Research, US Acute Care EHR Market Share 2025, 2025. ✓ (3) Confirmed-outcome cohort numbers — placeholder in Sec 7, populate when available.*
