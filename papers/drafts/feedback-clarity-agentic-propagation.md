@@ -51,7 +51,15 @@ The correct response is not to hire into the current bottleneck but to keep team
 
 Confirmed-outcome cohort work with selection-correction machinery is the natural platform — reframe it as measuring feedback clarity. [Cohort numbers: placeholder — populate from confirmed-outcome cohort results when available.]
 
-## 8. Conclusion
+## 8. Pipeline Generalization
+
+The feedback clarity framework applies at the stage level, not just at deployment scale. Any pipeline stage with no outcome signal is clarity-zero by definition, regardless of how principled it looks architecturally. A pre-research resolver that maps queries to canonical sources before an LLM synthesizes illustrates this: the resolver has no confirmation signal — it cannot know whether the sources it returned produced useful downstream answers. Resolver clarity is therefore zero: latency is unbounded (outcome never arrives), noise is uncorrelated with resolution quality, and contestability is absent because there is no eval surface. "Resolved to these sources" is not the same as "resolved correctly." Without a downstream eval loop, the hallucination is moved one stage earlier, not eliminated. The rest of the system pays silently.
+
+Open source does not fix this. It makes the static heuristic inspectable but does not create a learning loop. The maintainer can audit and patch manually — that is not nothing — but it moves the competence requirement from the black box to the maintainer rather than solving the feedback problem. Inspectable limitations are not the same as corrected limitations.
+
+This generalizes: pipeline architects should identify every clarity-zero stage and either (a) add an eval gate with a downstream outcome signal or (b) explicitly scope claims to what the stage can actually verify. Clarity-zero stages are silent error multipliers.
+
+## 9. Conclusion
 
 Coding is an outlier, not a default. Forecasts that extrapolate token demand should explicitly condition on feedback clarity; without that, they risk overestimating the pace and magnitude of agentic productivity gains. Our structural claim is falsifiable with the confirmed-outcome + selection-correction program described above; forecasts should incorporate uncertainty about clarity-driven propagation constraints.
 
