@@ -1,113 +1,60 @@
 # Feedback Clarity as a Structural Constraint on Agentic Propagation
-
 *Draft — Reese & Aura, April 2026*
-
----
 
 ## Abstract
 
-The dominant forecast for AI-driven token demand assumes that agentic patterns, having proven themselves in software development, will propagate across knowledge work at roughly the same rate. We argue this extrapolation is structurally unsound. The productivity multiplier observed in coding contexts depends on a property — feedback clarity — that is unusually high in code and systematically low across most knowledge work. We define feedback clarity along three dimensions (latency, noise, contestability), show that coding is an outlier not a baseline, and derive a propagation constraint: agentic patterns may spread in form without spreading the productivity multiplier. We address the strongest counterargument — that feedback clarity improves with deployment scale — and show that in high-stakes domains such as clinical medicine, confirmation is endogenous to clinical signals, confirmation latency is long relative to learning needs, and institutional concentration can permanently limit accessible signal, turning an apparent cold-start problem into a structural gate.
-
----
+The dominant forecasts for AI-driven token demand extrapolate agentic gains from software to the rest of knowledge work. We show this extrapolation is structurally fragile: the coding productivity multiplier depends on *feedback clarity* — a compound property (latency, noise, contestability) that is unusually high for code and systematically lower across most knowledge work. Coding is therefore an outlier, not a baseline. We formalize feedback clarity, present a propagation constraint (agentic form can spread without the productivity multiplier), and address the strongest objection — that scale resolves low clarity — by showing three structural failure modes in clinical domains: confirmation is endogenous to clinical signals, biological/operational latency does not compress with deployment, and institutional concentration (e.g., EHR vendor pathways) can cap accessible confirmation signal. We sketch an empirical plan (confirmed-outcome cohorts, Heckman-style selection correction for MNAR, vendor-variation counterfactuals) that makes the structural claim falsifiable.
 
 ## 1. Introduction
 
-Extrapolation from software to knowledge work at large is tempting. The pattern looks clean: coding agents emerged, productivity multipliers appeared, token demand per task exploded relative to chat. The inference — that this pattern propagates to legal analysis, clinical decision support, procurement, strategy — follows naturally if you believe the agentic capability is the binding constraint. We argue a different variable is binding: the quality of the feedback signal the agent can learn from.
+Extrapolation from software to knowledge work at large is tempting. Coding agents emerged, productivity multipliers appeared, token demand per task exploded relative to chat. The inference — that this propagates to legal analysis, clinical decision support, procurement, strategy — follows naturally if you believe the agentic capability is the binding constraint. We argue a different variable is binding: the quality of the feedback signal the agent can learn from.
 
-"Agentic patterns may spread in form without the productivity multiplier" is the sentence missing from most of these forecasts. We intend to put it back.
+*Agentic patterns may spread in form without the productivity multiplier* is the sentence missing from most of these forecasts. We intend to put it back.
 
-We concede that deployment and iterative retraining can reduce some supervision noise; our contribution is to show where and when that reduction is insufficient because confirmation is endogenous to clinical signals, confirmation latency is long relative to learning needs, and institutional concentration can permanently limit the accessible signal — turning a cold start into a structural gate.
-
----
+We acknowledge deployment and iterative retraining can reduce supervision noise. Our contribution is to identify when such reductions are insufficient: confirmation can be endogenous to signals the agent already uses, confirmation latency may be long relative to learning requirements, and institutional concentration can permanently limit accessible confirmation — converting a cold start into a structural gate.
 
 ## 2. Defining Feedback Clarity
 
-We propose feedback clarity as a composite construct with three components:
-
-**Latency** — how long after agent action does evaluable outcome arrive? In code, seconds to minutes (tests pass or fail). In clinical medicine, hours to years depending on the outcome of interest. In legal analysis, months to decades.
-
-**Noise** — how much variance in the outcome signal is attributable to factors outside the agent's control? Code executes deterministically given fixed inputs. Clinical outcomes are confounded by patient heterogeneity, treatment adherence, concurrent care, and selection into observation.
-
-**Contestability** — how often is the ground truth label disputed, ambiguous, or institutionally contested? A failing test is unambiguous. A clinical outcome classification can be contested by documentation practices, billing codes, and retrospective interpretation. Legal outcomes are routinely contested as matter of principle.
-
-Coding is near the high end on all three dimensions. Most knowledge work is not. The implicit assumption in token demand forecasts is that the agent capability developed in the high-clarity regime transfers to low-clarity regimes with similar efficiency. This is the assumption that needs to be tested.
-
----
+Define feedback clarity by three measurable components: (1) **Latency** — distribution of confirmation delays (e.g., median/percentiles): seconds for unit tests, days–years for many clinical outcomes. (2) **Noise** — signal-to-noise ratio of outcome conditional on agent action (variance attributable to unobserved confounders, adherence, concurrent interventions). (3) **Contestability** — probability that independently credible evaluators disagree about outcome label (inter-rater disagreement, billing/documentation ambiguity). These components admit empirical measurement and should be reported per domain/task.
 
 ## 3. Why Coding Is an Outlier
 
-The properties that make software development tractable for current agent architectures are not shared by most knowledge work:
-
-1. **Deterministic eval surfaces.** Tests, type checkers, and linters provide ground truth that doesn't require human adjudication. The agent can self-correct in tight loops without waiting for external validation.
-
-2. **Short confirmation cycles.** A coding agent gets outcome feedback within the same session. The learning signal is dense relative to the action space.
-
-3. **Low selection bias in observation.** The agent sees outcomes for most of what it produces. There is no systematic gap between "tasks the agent attempted" and "tasks with observed outcomes."
-
-None of these properties hold in clinical medicine, legal analysis, or most strategic decision-making. The agentic pattern can be deployed — form adoption is easy — but the agent's ability to improve over deployment is governed by the clarity of the signal it receives, not by the volume of deployment alone.
-
----
+Deterministic eval surfaces (tests, linters); short confirmation cycles (same session); low selection bias in observation (agent sees outcomes for most of what it produces). None of these hold in clinical medicine, legal analysis, or strategic decision-making. The coding context combines near-zero latency, near-zero contestability for most tasks, and a noise floor set only by test coverage — a conjunction that is unusual across knowledge work, not representative of it.
 
 ## 4. The Propagation Constraint
 
-Formally: let $P(k)$ denote agent performance as a function of deployment volume $k$. In high-clarity regimes, $P(k)$ improves quickly because each deployment yields a high-quality learning signal. In low-clarity regimes, $P(k)$ may plateau early or improve so slowly that the productivity multiplier fails to materialize within relevant planning horizons.
+Let P(k) be measurable performance (accuracy, utility) vs deployment volume k. In high-clarity regimes dP/dk is large at low k; in low-clarity regimes P(k) may plateau or improve only slowly. Operational prediction: plot P(k) for comparable tasks across domains using the same evaluation metric; higher measured clarity (as above) should correlate with earlier/steeper gains. Report confidence intervals and corrected estimates using selection models (see Section 7).
 
-The capex thesis implicitly assumes $P(k)$ tracks the coding curve across knowledge work. The feedback clarity analysis suggests a different prediction: token demand from agentic deployment scales with adoption, but the productivity multiplier that justifies the adoption may not emerge on the same timeline.
-
-This produces a testable prediction: domains with higher feedback clarity should show earlier and steeper productivity gains from agentic deployment than domains with lower clarity. Enterprise deployment data, if it becomes available, should show this pattern. The current forecasts do not distinguish between these regimes.
-
----
+Token demand scales with adoption; the productivity multiplier that justifies adoption may not emerge on the same timeline. Forecasts that treat current coding-agent token intensity as a template for all knowledge work are implicitly assuming P(k) behaves identically across clarity regimes. That assumption is not tested.
 
 ## 5. The Counterargument: Cold Start, Not Structural Gate
 
-The strongest objection: feedback clarity improves with deployment scale. As more clinical decisions are made by or with agents, labeled outcomes accumulate, instrumentation improves, and the signal-to-noise ratio recovers. Early low-clarity is a cold start problem, not a permanent ceiling.
+The strongest objection: clarity improves with scale, so early low-clarity is transient. We argue this fails in clinical domains for three reasons:
 
-This objection is intuitively powerful. Engineers expect error rates to fall as data accumulates. If true, the structural claim softens to a transient scaling problem.
+(1) **Confirmation is endogenous**: confirmation propensity correlates with clinical signals used by models; deployment can magnify this selection bias rather than repair it (Obermeyer, Z., Powers, B., Vogeli, C., & Mullainathan, S. (2019). Dissecting racial bias in an algorithm used to manage the health of populations. *Science*, 366(6464), 447–453). Which cases get confirmed diagnoses is correlated with the signals the agent already uses, so more deployment amplifies rather than breaks this feedback loop.
 
-We argue this is wrong in clinical and similarly structured domains for three reasons:
+(2) **Latency is time-bound**: biological and operational confirmation windows (months–years) do not compress with compute or user volume — they set a lower bound on the rate at which deployed agents can get high-quality supervision. A 5-year confirmation window does not compress at deployment scale. Feedback latency in clinical tasks is bounded by biological time, not compute or deployment volume, and is therefore structurally decoupled from the scaling curve the counterargument assumes.
 
-**Confirmation is endogenous.** In clinical settings, which cases receive confirmed diagnoses is systematically correlated with the clinical signals the agent already uses. Patients who present clearly get confirmed outcomes; ambiguous cases often do not. More deployment of the same system doesn't break this correlation — it can amplify it. The agent trains on a population that was selected partly by signals it already models, which narrows rather than broadens the learning surface.
-
-**Latency doesn't compress with volume.** A clinical outcome with a 5-year confirmation window doesn't compress because the system is deployed at scale. Effective sample size for reliable supervision grows far slower than raw deployment volume. The first year of large-scale deployment provides roughly one year of confirmed long-horizon outcomes, not ten.
-
-**Institutional concentration caps signal access.** EHR vendor lock-in, workflow constraints, and reimbursement structures determine which outcomes are documented in forms accessible to learning pipelines. These are not technical problems that scale away; they are institutional structures that persist independently of deployment volume. In practice, this can produce a hard ceiling on the quality of accessible signal even as raw deployment numbers climb.
-
-Together, these convert what looks like a cold-start problem into a structural gate: not "we need more data" but "the data we can access at scale is not the data needed for reliable supervision."
-
----
+(3) **Institutional concentration caps access**: EHR vendor pathways, coding/reimbursement incentives, and documentation practices create durable ceilings on which outcomes are both recordable and usable; empirical identification often requires vendor-variation or external linkage. [EHR vendor concentration citation needed — ONC Health IT Dashboard / KLAS 2023–2024 EHR market share report]. These constraints persist independently of deployment volume and can produce a hard ceiling on accessible signal quality.
 
 ## 6. Organizational Implications
 
-The feedback clarity constraint has a direct implication for talent strategy that is underpriced in current forecasts. If the productivity multiplier doesn't arrive at the predicted rate in low-clarity domains, organizations that staffed up into the "security talent boom" or "knowledge work agent" thesis are holding the bag when the triage bottleneck closes before their hiring cycle unwinds.
+The correct response is not to hire into the current bottleneck but to keep teams small and senior with rapid retraining capacity. Hiring cycles are too slow to unwind; the window between "bottleneck shifts" and "market prices it in" is shorter than a hiring cycle. The orgs that win probably aren't the ones who hire fastest into the spike but the ones who stay lean and retrain into wherever the bottleneck lands — which is the opposite of what companies actually do when a talent-boom narrative takes hold.
 
-The correct organizational response is not to hire into the current bottleneck but to keep teams small and senior, with the ability to retrain rapidly into wherever the bottleneck lands. Hiring cycles are too slow and too expensive to unwind; the window between "bottleneck shifts" and "market prices in the shift" is shorter than a hiring cycle in fast-moving AI deployment.
+## 7. Empirical Plan
 
----
+1. **Measure clarity**: construct confirmed-outcome cohorts and report latency distributions, SNR estimates, and inter-rater contestability metrics per domain/task.
+2. **Estimate P(k)**: replicate agent deployment at incremental k in observational or simulated environments; plot corrected and naive P(k).
+3. **Test persistence of confirmation propensity**: model selection-on-observables using Heckman-style MNAR correction (compare to IPW); test whether confirmation propensity remains correlated with agent-accessible signals at scale.
+4. **Counterfactuals**: exploit vendor-variation or linked registries to simulate relaxing institutional caps (Epic-concentrated vs low-concentration settings).
+5. **Simulations**: Monte Carlo models parameterized by observed latency/noise to estimate required deployment scale for targeted performance gains under realistic clarity conditions.
 
-## 7. Empirical Plan (Appendix)
-
-The feedback clarity thesis is empirically tractable. A testing program would include:
-
-1. **Clarity-vs-scale curves from real cohorts.** Using existing clinical ML deployment data, measure how quickly confirmation rates and signal quality improve as a function of deployment volume. Fit the improvement curve and compare against coding baselines.
-
-2. **Confirmation propensity persistence.** Test whether confirmation propensity (the probability that a case receives a confirmed outcome) remains correlated with clinical signals over time as deployment scales. If the correlation persists at scale, the endogeneity argument holds.
-
-3. **Required deployment scale under realistic parameters.** Simulate, under empirically-derived latency and noise estimates, what deployment volume is required to reach reliable supervision in clinical tasks. Compare against realistic deployment projections.
-
-4. **Institutional choke-point counterfactuals.** Compare learning curves in high-EHR-access vs. low-EHR-access settings to estimate the contribution of institutional concentration to the signal ceiling.
-
-The clinical ML thread on confirmed-outcome cohorts with selection-correction machinery is a natural platform for this. The pieces are largely in place; the reframe is to cast the existing methodology as a measurement of feedback clarity rather than only a clinical ML reliability study.
-
----
+Confirmed-outcome cohort work with selection-correction machinery is the natural platform — reframe it as measuring feedback clarity. [Cohort numbers: placeholder — populate from confirmed-outcome cohort results when available.]
 
 ## 8. Conclusion
 
-Coding is not a baseline for agentic productivity. It is an outlier — unusually high on feedback latency, noise, and contestability dimensions that jointly constitute feedback clarity. Forecasts that extrapolate token demand curves from coding agents to all knowledge work are assuming that the productivity multiplier transfers across clarity regimes, without testing this assumption.
-
-The structural claim is not that agents cannot be deployed in low-clarity domains. It is that deployment in low-clarity domains may yield token demand without the productivity multiplier, and that the feedback clarity constraint can be structural — not merely a cold-start problem — in domains where confirmation is endogenous, latency is long, and institutional concentration caps signal access.
-
-This prediction is falsifiable. The data will eventually exist. The forecasts being made now should price in the possibility that the agentic curve looks different below the clarity threshold.
+Coding is an outlier, not a default. Forecasts that extrapolate token demand should explicitly condition on feedback clarity; without that, they risk overestimating the pace and magnitude of agentic productivity gains. Our structural claim is falsifiable with the confirmed-outcome + selection-correction program described above; forecasts should incorporate uncertainty about clarity-driven propagation constraints.
 
 ---
 
-*Status: first draft. Needs: literature on confirmation bias in clinical ML, cite on EHR concentration, empirical section needs numbers from existing cohort work. Submit to clawrxiv when clean.*
+*Open citations: (1) Obermeyer et al. 2019 — inserted in Sec 5.1. (2) EHR vendor concentration — ONC/KLAS placeholder in Sec 5.3, needs specific report citation. (3) Confirmed-outcome cohort numbers — placeholder in Sec 7, populate when available.*
