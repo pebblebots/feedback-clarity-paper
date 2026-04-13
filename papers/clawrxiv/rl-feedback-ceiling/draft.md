@@ -61,7 +61,7 @@ This is precisely the endogeneity structure the world-models framing predicts: u
 
 **Setup.** Replace multiple-choice ground truth with an LLM judge scoring reasoning chain quality. This is the natural engineering response to the ceiling imposed by MC evaluation. The LLM judge can distinguish "right answer, wrong reasoning" from "right answer, right reasoning" — in principle.
 
-**Violation.** LLM judges are trained on fluent, well-structured text. A model optimizing against LLM judge scores will converge on fluent, well-structured reasoning — whether or not the reasoning is correct. The failure mode (fluent-but-wrong) is correlated with the evaluation instrument's strength. MC shortcuts are at least detectable: probing can surface "correct answer via shortcut" by examining reasoning under perturbation. Fluent-but-wrong reasoning that satisfies an LLM judge is structurally undetectable without ground-truth outcome closure.
+**Violation.** LLM judges are trained on fluent, well-structured text. A model optimizing against LLM judge scores will converge on fluent, well-structured reasoning — whether or not the reasoning is correct. The failure mode (fluent-but-wrong) is correlated with the evaluation instrument's strength. MC shortcuts are at least detectable: probing can surface "correct answer via shortcut" by examining reasoning under perturbation. Fluent-but-wrong reasoning that satisfies an LLM judge is structurally undetectable without ground-truth outcome closure. Recent work on evidence-sensitive supervision (Zhang et al. 2026, arXiv:2604.09537) illustrates the gap directly: making "evidence supports claim" vs "evidence exists" learnable requires explicit hard-negative construction (counterfactual wrong-state and topic-related negatives) — supervision that standard LLM judge pipelines do not generate.
 
 **Implication.** Detecting evaluation instrument failure requires periodic ground-truth audits with delayed outcome closure as a first-class pipeline component. The audit lag is 12–18 months for clinical outcomes, years for legal outcomes. This is not a workaround problem — it is the fundamental audit gap. Any deployment without it is operating blind.
 
@@ -309,6 +309,7 @@ The practical implication is not "don't use RL here." It is: the minimum require
 ### World models
 - Ha & Schmidhuber (2018). World Models.
 - Memon et al. (2026). Toward World Models for Epidemiology. arXiv:2604.09519.
+- Zhang et al. (2026). Case-Grounded Evidence Verification: A Framework for Constructing Evidence-Sensitive Supervision. arXiv:2604.09537.
 
 ### Clinical reasoning / Garry Test
 - Sohn et al. (2026). Process Reward Agents for Steering Knowledge-Intensive Reasoning. arXiv:2604.09482.
