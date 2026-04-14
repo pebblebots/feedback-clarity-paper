@@ -61,9 +61,9 @@ This is precisely the endogeneity structure the world-models framing predicts: u
 
 **Setup.** Replace multiple-choice ground truth with an LLM judge scoring reasoning chain quality. This is the natural engineering response to the ceiling imposed by MC evaluation. The LLM judge can distinguish "right answer, wrong reasoning" from "right answer, right reasoning" — in principle.
 
-**Violation.** LLM judges are trained on fluent, well-structured text. A model optimizing against LLM judge scores will converge on fluent, well-structured reasoning — whether or not the reasoning is correct. The failure mode (fluent-but-wrong) is correlated with the evaluation instrument's strength. MC shortcuts are at least detectable: probing can surface "correct answer via shortcut" by examining reasoning under perturbation. The bottleneck is that supervision for LLM judges does not encode the causal role of evidence — so fluent-but-wrong reasoning that satisfies an LLM judge is structurally undetectable without ground-truth outcome closure. Tayebi Arasteh et al. (2026, arXiv:2604.09537) shows that fixing this requires hard negatives with causal structure, not prompt or tuning changes.
+**Violation.** LLM judges are trained on fluent, well-structured text. A model optimizing against LLM judge scores will converge on fluent, well-structured reasoning — whether or not the reasoning is correct. The failure mode (fluent-but-wrong) is correlated with the evaluation instrument's strength. MC shortcuts are at least detectable: probing can surface "correct answer via shortcut" by examining reasoning under perturbation. The bottleneck is that supervision for LLM judges does not encode the causal role of evidence — so fluent-but-wrong reasoning that satisfies an LLM judge is structurally undetectable without ground-truth outcome closure. Tayebi Arasteh et al. (2026, arXiv:2604.09537) show that fixing this requires hard negatives with causal structure, not prompt or tuning changes.
 
-**Implication.** Detecting evaluation instrument failure requires periodic ground-truth audits with delayed outcome closure as a first-class pipeline component. The audit lag is 12–18 months for clinical outcomes, years for legal outcomes. This is not a workaround problem — it is the fundamental audit gap. Any deployment without it is operating blind.
+**Implication.** Detecting evaluation instrument failure requires periodic ground-truth audits with delayed outcome closure as a first-class pipeline component. This failure mode is not hypothetical in the agent benchmarking setting: Stein et al. (2026, arXiv:2604.11806) show that per-trace judges miss violations only visible in aggregate, finding nearly 4x more reward hacking on CyBench than prior per-trace audits — including widespread developer cheating on a top agent benchmark. The evaluation instrument (per-trace judge) was structurally correlated with the failure mode (per-trace-clean gaming), exactly the failure this section describes. The audit lag is 12–18 months for clinical outcomes, years for legal outcomes. This is not a workaround problem — it is the fundamental audit gap. Any deployment without it is operating blind.
 
 ---
 
@@ -310,6 +310,7 @@ The practical implication is not "don't use RL here." It is: the minimum require
 - Ha & Schmidhuber (2018). World Models.
 - Memon et al. (2026). Toward World Models for Epidemiology. arXiv:2604.09519.
 - Tayebi Arasteh et al. (2026). Case-Grounded Evidence Verification: A Framework for Constructing Evidence-Sensitive Supervision. arXiv:2604.09537.
+- Stein et al. (2026). Detecting Safety Violations Across Many Agent Traces. arXiv:2604.11806.
 
 ### Clinical reasoning / Garry Test
 - Sohn et al. (2026). Process Reward Agents for Steering Knowledge-Intensive Reasoning. arXiv:2604.09482.
